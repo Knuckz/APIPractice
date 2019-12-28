@@ -1,0 +1,1 @@
+This is a tuturial about REST api's, but I will be moving from MONGODB with Mongoose to Postgresql raw SQL.
