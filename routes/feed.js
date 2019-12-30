@@ -22,7 +22,21 @@ router.post(
     feedController.createPost
 );
 
-router.get('/testing', feedController.testing);
-
 router.get('/post/:postId', feedController.getPost);
+
+router.put(
+    '/post/:postId',                        //route /put
+    [
+        body('title')               //This body looks at the incoming data from the post request of key value title
+            .trim()                 //trims the white space off front and back
+            .isLength({min: 5}),    //gives a minimum length of 5 chars.
+        body('content')
+            .trim()
+            .isLength({min: 5})
+    ],
+    feedController.updatePost
+);
+
+router.delete('/post/:postId', feedController.deletePost);
+
 module.exports = router;                                //exporting the router for use in other files. Mostly app.js.
