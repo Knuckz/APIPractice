@@ -1,5 +1,5 @@
 const express = require('express');
-const { body } = require('express-validator/check');    //This is used for validation. /post for an example
+const { body } = require('express-validator');    //This is used for validation. /post for an example
 
 const feedController = require('../controllers/feed');  //requires the feed controller where route logic is performed
 
@@ -22,4 +22,7 @@ router.post(
     feedController.createPost
 );
 
+router.get('/testing', feedController.testing);
+
+router.get('/post/:postId', feedController.getPost);
 module.exports = router;                                //exporting the router for use in other files. Mostly app.js.
