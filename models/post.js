@@ -4,8 +4,8 @@ exports.getPosts = {
 
 exports.addPost = {
     text: `INSERT INTO post 
-            (title, image, content, creator, date_generated)
-            VALUES ($1, $2, $3, $4, $5)`
+            (title, image, content, creator, creator_id, date_generated)
+            VALUES ($1, $2, $3, $4, $5, $6)`
 }
 
 exports.selectPost = {

@@ -60,7 +60,7 @@ exports.createPost = (req, res, next) => {
   //Do the addPost query which adds a new post to our database using
   //our query function and addPost query from models
   console.log(new Date())
-  db.query(queries.addPost.text, [title, image, content, 'Austin', new Date()], (err, result) => {
+  db.query(queries.addPost.text, [title, image, content, 'Austin', req.userId, new Date()], (err, result) => {
     if (!!err) {
       if (!err.statusCode) {
         err.statusCode = 500;
@@ -168,6 +168,7 @@ exports.deletePost = (req, res, next) => {
       }
       next(err);
     }
+    console.log(result);
     res.status(200).json({
       message: "DELETED post"
     });

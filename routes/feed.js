@@ -4,9 +4,10 @@ const { body } = require('express-validator');    //This is used for validation.
 const feedController = require('../controllers/feed');  //requires the feed controller where route logic is performed
 
 const router = express.Router();                        //requires the express router which is used to get routes below
+const isAuth = require('../middleware/is-auth');
 
 // GET /feed/posts
-router.get('/posts', feedController.getPosts);
+router.get('/posts', isAuth, feedController.getPosts);
 
 // POST /feed/post
 router.post(
@@ -19,10 +20,11 @@ router.post(
             .trim()
             .isLength({min: 5})
     ],
+    isAuth,
     feedController.createPost
 );
 
-router.get('/post/:postId', feedController.getPost);
+router.get('/post/:postId', isAuth, feedController.getPost);
 
 router.put(
     '/post/:postId',                        //route /put
@@ -34,9 +36,10 @@ router.put(
             .trim()
             .isLength({min: 5})
     ],
+    isAuth,
     feedController.updatePost
 );
 
-router.delete('/post/:postId', feedController.deletePost);
+router.delete('/post/:postId', isAuth, feedController.deletePost);
 
 module.exports = router;                                //exporting the router for use in other files. Mostly app.js.

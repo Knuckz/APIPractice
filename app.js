@@ -5,7 +5,8 @@ const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 
 const feedRoutes = require('./routes/feed');            //We are requiring the routes from feed so that we can use them below. this lets me seperate 
-                                                        //all of the routes that could ave a feed route into a seperate file.
+const authRoutes = require('./routes/auth');            //all of the routes that could ave a feed route into a seperate file.
+                                                        
 const app = express();                                  //This creates the express app
 
 
@@ -42,13 +43,16 @@ app.use((req, res, next) => {
 });
 
 app.use('/feed', feedRoutes);   //The feed route
+app.use('/auth', authRoutes);    //the Auth route
 
 app.use((error, req, res, next) => {
     console.log(error);
     const status = error.statusCode || 500;
     const message = error.message;
+    const data = error.data;
     res.status(status).json({
-        message: message
+        message: message,
+        data: data
     })
 })
 
