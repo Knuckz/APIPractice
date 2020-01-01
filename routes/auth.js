@@ -12,14 +12,15 @@ router.put(
     [
         body('email')
         .isEmail()
-        .withMessage('Please enter a valid email.')
-        .custom((value, { req }) => {
+        .withMessage("Please enter a valid email.")
+        .custom((value) => {
             //look for if email exists
             db.query(user.checkEmail.text, [value], (err, result) => {
-                if (!!result.rows) {
-                    next('This email exists');
+                if (!!result.rows.length > 0) {
+                    throw new Error('email is used!');
                 }
-            })
+            });
+            return true;
         })
         .normalizeEmail(),
         body('password').trim().isLength({min: 5}),

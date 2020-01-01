@@ -115,10 +115,13 @@ exports.updatePost = (req, res, next) => {
     throw error;             
   }
 
+  //gets post id from url
   const postId = req.params.postId;
+  //gets info from front end form
   const title = req.body.title;
   const content = req.body.content;
   let image = req.body.image;
+
   if (req.file) {
     image = req.file.path.replace("\\", "/");
   }
